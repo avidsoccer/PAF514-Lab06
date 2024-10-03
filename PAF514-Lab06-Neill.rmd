@@ -1,0 +1,151 @@
+---
+title: "Lab 06 - Report Templates Part 1"
+author: "Neill"
+date: "10/02/2024"
+output:
+  html_document:
+    theme: readable
+    df_print: paged
+    highlight: zenburn
+    toc: true
+---
+
+```{r setup, include=FALSE}
+
+# Load lab packages
+
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(fontawesome)
+
+```
+
+
+# Create Bio Data
+
+```{r bio, include=FALSE}
+
+# Create the bio vector to include first name, last name, website, 
+# x handle, github username, and email, and description.  Use empty strings for
+# missing information.
+
+# Create vectors for each information type
+FIRST.NAME <- c("Rich", "Emma", "Yalda")
+LAST.NAME <- c("Fitzjohn", "Glennon", "Jafari")
+FULL.NAME <- paste(FIRST.NAME, LAST.NAME)
+DESC <- c("R developer specialized in data analysis infrastructures., Imperial College London, UK., NA", 
+         "Sir Henry Wellcome Research Fellow, University of Cambridge, United Kingdom", 
+         "DPhil Candidate, University of Oxford, United Kingdom")
+WEBSITE <- c("http://richfitz.github.io/", "", "")
+GITHUB <- c("https://github.com/richfitz/", "https://github.com/eeg31", "")
+X.HANDLE <- c("https://twitter.com/rgfitzjohn", "https://twitter.com/emma__glennon", "")
+IMG <- c("https://raw.githubusercontent.com/Watts-College/paf-514-template/main/labs/images/Avatar-04.png", 
+    "https://raw.githubusercontent.com/Watts-College/paf-514-template/main/labs/images/Avatar-08.png", 
+    "https://raw.githubusercontent.com/Watts-College/paf-514-template/main/labs/images/Avatar-03.png")
+
+# Bind the vectors together into a data frame
+dat <- data.frame(FULL.NAME, FIRST.NAME, LAST.NAME, DESC, WEBSITE, GITHUB, X.HANDLE, IMG)
+
+# Sort by last.name, first.name
+
+dat <- dat[order(dat$LAST.NAME, dat$FIRST.NAME),]
+row.names(dat) <- seq_len(nrow(dat))
+
+# Print the data frame
+print(dat)
+
+```
+
+# Load Icons
+
+```{r icons, echo=FALSE}
+
+# Home icon for WEBSITE
+
+print("Home Page:")
+print(" ")
+cat(as.character(fontawesome::fa(name="home")))
+print(" ")
+
+# GitHub icon for GITHUB
+
+print("GitHub:")
+print(" ")
+cat(as.character(fontawesome::fa(name="github")))
+print(" ")
+
+# Twitter/X icon for X.HANDLE
+
+print("Twitter:")
+print(" ")
+cat(as.character(fontawesome::fa(name="twitter")))
+print(" ")
+
+```
+
+# Build Circles
+
+## Member Elements
+
+- WEBSITE: personal website of the member
+- IMG: image of the member
+- FULL.NAME: full name of the member
+- DESC: description of the member
+- GITHUB: GitHub URL
+- X.HANDLE: Twitter URL 
+
+```{r circles, echo=FALSE}
+
+build_circles <- function(WEBSITE="", IMG="", FULL.NAME="", DESC="", GITHUB="", X.HANDLE="") 
+{
+    # Create the HTML for the circle
+    cat('<div class="list-circles-item">')
+    cat('\n') # line break
+    cat('\n') # line break
+    
+    # Member Names and Images
+    cat(paste0('  <a href="', WEBSITE, '">'))
+    cat(  '\n') # line break
+    cat(paste0('  <img src="', IMG, '" class=image=img"></a>'))
+    cat(  '\n') # line break
+    cat(  '\n') # line break
+    cat(paste0('  <h4 class="item-name">', FULL.NAME, '</h4>'))
+    cat(  '\n') # line break
+    cat(  '\n') # line break
+    
+    # Member description
+
+    cat(paste0('  <p class="item-description">', DESC, '</p>'))
+    cat(  '\n') # line break
+    cat(  '\n') # line break
+
+    # Links and FontAwsome Icons
+    cat('  <div class="item-links">')
+    cat(  '\n') # line break
+    cat(  '\n') # line break
+    cat(paste0('   <a class="item-link" href="', WEBSITE, '" title="website">'), fontawesome::fa(name="home"), '</a>')
+    cat(  '\n') # line break
+    cat(  '\n') # line break
+    
+    # Github and Twitter
+    cat(paste0('   <a class="item-link" href="', GITHUB, '" title="github">'), fontawesome::fa(name="github"), '</a>')
+    cat(  '\n') # line break
+    cat(  '\n') # line break
+    cat(paste0('   <a class="item-link" href="', X.HANDLE, '" title="twitter">'), fontawesome::fa(name="twitter"), '</a>')
+    cat(  '\n') # line break
+    cat(  '\n') # line break
+    cat('  </div>')
+
+    # End of code
+    cat('\n') # line break
+    cat('\n') # line break
+    cat('</div>')
+
+}
+
+```
+
+
+
+<hr>
+
