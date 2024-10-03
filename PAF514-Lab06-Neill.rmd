@@ -103,18 +103,21 @@ build_circles <- function(WEBSITE="", IMG="", FULL.NAME="", DESC="", GITHUB="", 
     cat('\n') # line break
     cat('\n') # line break
     
-    # Member Names and Images
-    cat(paste0('  <a href="', WEBSITE, '">'))
-    cat(  '\n') # line break
-    cat(paste0('  <img src="', IMG, '" class=image=img"></a>'))
-    cat(  '\n') # line break
-    cat(  '\n') # line break
-    cat(paste0('  <h4 class="item-name">', FULL.NAME, '</h4>'))
-    cat(  '\n') # line break
-    cat(  '\n') # line break
-    
+    if (WEBSITE != "") {
+        # Member Names and Images
+        cat(paste0('  <a href="', WEBSITE, '">'))
+        cat(  '\n') # line break
+        cat(paste0('  <img src="', IMG, '" class=image=img"></a>'))
+    } else {
+        cat(paste0('  <img src="', IMG, '" class=image=img">'))
+    }
+        cat(  '\n') # line break
+        cat(  '\n') # line break
+        cat(paste0('  <h4 class="item-name">', FULL.NAME, '</h4>'))
+        cat(  '\n') # line break
+        cat(  '\n') # line break
+            
     # Member description
-
     cat(paste0('  <p class="item-description">', DESC, '</p>'))
     cat(  '\n') # line break
     cat(  '\n') # line break
@@ -123,9 +126,11 @@ build_circles <- function(WEBSITE="", IMG="", FULL.NAME="", DESC="", GITHUB="", 
     cat('  <div class="item-links">')
     cat(  '\n') # line break
     cat(  '\n') # line break
-    cat(paste0('   <a class="item-link" href="', WEBSITE, '" title="website">'), fontawesome::fa(name="home"), '</a>')
-    cat(  '\n') # line break
-    cat(  '\n') # line break
+    if (WEBSITE != "") {
+        cat(paste0('   <a class="item-link" href="', WEBSITE, '" title="website">'), fontawesome::fa(name="home"), '</a>')
+        cat(  '\n') # line break
+        cat(  '\n') # line break
+    }
     
     # Github and Twitter
     cat(paste0('   <a class="item-link" href="', GITHUB, '" title="github">'), fontawesome::fa(name="github"), '</a>')
