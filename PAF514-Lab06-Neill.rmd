@@ -1,7 +1,7 @@
 ---
 title: "Lab 06 - Report Templates Part 1"
 author: "Neill"
-date: "10/02/2024"
+date: "10/03/2024"
 output:
   html_document:
     theme: readable
@@ -14,7 +14,7 @@ output:
 
 # Load lab packages
 
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, results = 'hide')
 library(tidyverse)
 library(fontawesome)
 
@@ -94,7 +94,7 @@ print(" ")
 - GITHUB: GitHub URL
 - X.HANDLE: Twitter URL 
 
-```{r circles, echo=FALSE}
+```{r circles}
 
 build_circles <- function(WEBSITE="", IMG="", FULL.NAME="", DESC="", GITHUB="", X.HANDLE="") 
 {
@@ -111,34 +111,33 @@ build_circles <- function(WEBSITE="", IMG="", FULL.NAME="", DESC="", GITHUB="", 
     } else {
         cat(paste0('  <img src="', IMG, '" class=image=img">'))
     }
-        cat(  '\n') # line break
-        cat(  '\n') # line break
+        
+    cat(  '\n') # line break
+    cat(  '\n') # line break
+    if (FULL.NAME != "") {
         cat(paste0('  <h4 class="item-name">', FULL.NAME, '</h4>'))
-        cat(  '\n') # line break
-        cat(  '\n') # line break
-            
-    # Member description
-    cat(paste0('  <p class="item-description">', DESC, '</p>'))
+    } else {
+        cat(paste0(  <h4 class="item-name">, 'Name not provided', '</h4>'))
+    }
     cat(  '\n') # line break
-    cat(  '\n') # line break
-
+    
     # Links and FontAwsome Icons
     cat('  <div class="item-links">')
     cat(  '\n') # line break
     cat(  '\n') # line break
-    if (WEBSITE != "") {
-        cat(paste0('   <a class="item-link" href="', WEBSITE, '" title="website">'), fontawesome::fa(name="home"), '</a>')
+
+    # Github and Twitter
+    if (GITHUB != "") {
+        cat(paste0('   <a class="item-link" href="', GITHUB, '" title="github">'), fontawesome::fa(name="github"), '</a>')
         cat(  '\n') # line break
         cat(  '\n') # line break
     }
-    
-    # Github and Twitter
-    cat(paste0('   <a class="item-link" href="', GITHUB, '" title="github">'), fontawesome::fa(name="github"), '</a>')
-    cat(  '\n') # line break
-    cat(  '\n') # line break
-    cat(paste0('   <a class="item-link" href="', X.HANDLE, '" title="twitter">'), fontawesome::fa(name="twitter"), '</a>')
-    cat(  '\n') # line break
-    cat(  '\n') # line break
+
+    if (X.HANDLE != "") {
+        cat(paste0('   <a class="item-link" href="', X.HANDLE, '" title="twitter">'), fontawesome::fa(name="twitter"), '</a>')
+        cat(  '\n') # line break
+        cat(  '\n') # line break
+    }
     cat('  </div>')
 
     # End of code
@@ -150,7 +149,38 @@ build_circles <- function(WEBSITE="", IMG="", FULL.NAME="", DESC="", GITHUB="", 
 
 ```
 
+# Output report
+
+```{r fill-circles, echo=FALSE, results='asis'}
+
+cat('div class="list-circles">')
+
+# Loop through the data frame and create a circle for each member
+
+cat('div class="list-circles">')
+cat('\n') # line break
+cat('\n') # line break
+
+for (i in seq_len(nrow(dat))) 
+{
+#    print(dat[i, !(names(dat) %in% c("FIRST.NAME", "LAST.NAME"))])
+#    build_circles(WEBSITE=dat$WEBSITE[i], IMG=dat$IMG[i], FULL.NAME=dat$FULL.NAME[i], DESC=dat$DESC[i], GITHUB=dat$GITHUB[i], X.HANDLE=dat$X.HANDLE[i])
+
+    df <- dat[i, !(names(dat) %in% c("FIRST.NAME", "LAST.NAME"))] # select one row/member at a time
+    build_circles(WEBSITE=df$WEBSITE
+    , IMG=df$IMG
+    , FULL.NAME=df$FULL.NAME
+    , DESC=df$DESC
+    , GITHUB=df$GITHUB
+    , X.HANDLE=df$X.HANDLE)
+}
+
+cat('</div>')
+
+```
 
 
+
+# EOF
 <hr>
 
