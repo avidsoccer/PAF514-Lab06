@@ -40,9 +40,10 @@ WEBSITE <- c("http://richfitz.github.io/", "", "")
 GITHUB <- c("https://github.com/richfitz/", "https://github.com/eeg31", "")
 X.HANDLE <- c("https://twitter.com/rgfitzjohn", "https://twitter.com/emma__glennon", "")
 IMG <- c("https://img.icons8.com/?size=40&id=23493&format=png", 
-    "https://icons8.com/icon/23261/user-male-skin-type-1-2",
-    "https://icons8.com/icon/23308/person-female")
+    "https://img.icons8.com/?size=40&id=23493&format=png", 
+    "https://img.icons8.com/?size=40&id=23493&format=png")
 
+# NOTE: The images are not loading from the URLs provided.  I have replaced them with a generic image URL.
 
 # IMG <- c("https://raw.githubusercontent.com/Watts-College/paf-514-template/main/labs/images/Avatar-04.png", 
 #    "https://raw.githubusercontent.com/Watts-College/paf-514-template/main/labs/images/Avatar-08.png",
@@ -174,7 +175,7 @@ build_circles <- function(WEBSITE="", IMG="", FULL.NAME="", DESC="", GITHUB="", 
 
 # Loop through the data frame and create a circle for each member
 
-cat( 'div class="list-circles">')
+cat( '<div class="list-circles">')
 cat( '\n') # line break
 cat( '\n') # line break
 
