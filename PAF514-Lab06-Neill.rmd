@@ -39,9 +39,14 @@ DESC <- c("R developer specialized in data analysis infrastructures., Imperial C
 WEBSITE <- c("http://richfitz.github.io/", "", "")
 GITHUB <- c("https://github.com/richfitz/", "https://github.com/eeg31", "")
 X.HANDLE <- c("https://twitter.com/rgfitzjohn", "https://twitter.com/emma__glennon", "")
-IMG <- c("https://raw.githubusercontent.com/Watts-College/paf-514-template/main/labs/images/Avatar-04.png", 
-    "https://raw.githubusercontent.com/Watts-College/paf-514-template/main/labs/images/Avatar-08.png", 
-    "https://raw.githubusercontent.com/Watts-College/paf-514-template/main/labs/images/Avatar-03.png")
+IMG <- c("https://img.icons8.com/?size=40&id=23493&format=png", 
+    "https://icons8.com/icon/23261/user-male-skin-type-1-2",
+    "https://icons8.com/icon/23308/person-female")
+
+
+# IMG <- c("https://raw.githubusercontent.com/Watts-College/paf-514-template/main/labs/images/Avatar-04.png", 
+#    "https://raw.githubusercontent.com/Watts-College/paf-514-template/main/labs/images/Avatar-08.png",
+#    "https://raw.githubusercontent.com/Watts-College/paf-514-template/main/labs/images/Avatar-03.png")
 
 # Bind the vectors together into a data frame
 dat <- data.frame(FULL.NAME, FIRST.NAME, LAST.NAME, DESC, WEBSITE, GITHUB, X.HANDLE, IMG)
@@ -114,17 +119,31 @@ build_circles <- function(WEBSITE="", IMG="", FULL.NAME="", DESC="", GITHUB="", 
         
     cat(  '\n') # line break
     cat(  '\n') # line break
+ 
     if (FULL.NAME != "") {
         cat(paste0('  <h4 class="item-name">', FULL.NAME, '</h4>'))
     } else {
-        cat(paste0(  <h4 class="item-name">, 'Name not provided', '</h4>'))
+        cat(paste0('  <h4 class="item-name">', 'Name not provided', '</h4>'))
     }
     cat(  '\n') # line break
-    
+
+    if (DESC != "") {
+        cat(paste0('  <div class=item-desc">', DESC, '</div>'))
+    } else {
+        cat(paste0('  <div class="item-desc">', "Description not provided", '</div>'))
+    }
+    cat(  '\n') # line break
+    cat(  '\n') # line break
+
     # Links and FontAwsome Icons
     cat('  <div class="item-links">')
     cat(  '\n') # line break
     cat(  '\n') # line break
+    if (WEBSITE != "") {
+        cat(paste0('   <a class="item-link" href="', WEBSITE, '" title="website">'), fontawesome::fa(name="home"), '</a>')
+        cat(  '\n') # line break
+        cat(  '\n') # line break
+    }
 
     # Github and Twitter
     if (GITHUB != "") {
@@ -149,38 +168,107 @@ build_circles <- function(WEBSITE="", IMG="", FULL.NAME="", DESC="", GITHUB="", 
 
 ```
 
-# Output report
+# R Epidemics Consortium Members
 
-```{r fill-circles, echo=FALSE, results='asis'}
-
-cat('div class="list-circles">')
+```{r fill-circles, results='asis', echo=FALSE}
 
 # Loop through the data frame and create a circle for each member
 
-cat('div class="list-circles">')
-cat('\n') # line break
-cat('\n') # line break
+cat( 'div class="list-circles">')
+cat( '\n') # line break
+cat( '\n') # line break
 
 for (i in seq_len(nrow(dat))) 
 {
-#    print(dat[i, !(names(dat) %in% c("FIRST.NAME", "LAST.NAME"))])
-#    build_circles(WEBSITE=dat$WEBSITE[i], IMG=dat$IMG[i], FULL.NAME=dat$FULL.NAME[i], DESC=dat$DESC[i], GITHUB=dat$GITHUB[i], X.HANDLE=dat$X.HANDLE[i])
-
     df <- dat[i, !(names(dat) %in% c("FIRST.NAME", "LAST.NAME"))] # select one row/member at a time
-    build_circles(WEBSITE=df$WEBSITE
-    , IMG=df$IMG
-    , FULL.NAME=df$FULL.NAME
-    , DESC=df$DESC
-    , GITHUB=df$GITHUB
-    , X.HANDLE=df$X.HANDLE)
+    build_circles(WEBSITE=df$WEBSITE,
+        IMG=df$IMG,
+        FULL.NAME=df$FULL.NAME,
+        DESC=df$DESC,
+        GITHUB=df$GITHUB,
+        X.HANDLE=df$X.HANDLE)
+    cat('\n') # line break
+    cat('\n') # line break
 }
 
 cat('</div>')
 
 ```
+# CSS
+
+```{css, echo=FALSE}
+
+<style>
+/* --- css elements here --- */
 
 
+/* --- Lists of circles --- */
 
-# EOF
+div { display: block } 
+  
+.list-circles {
+  text-align: center;
+}
+
+@media only screen and (min-width: 1200px) {
+  .list-circles {
+    width: 150%;
+    margin-left: -25%;
+  }
+}
+
+
+.list-circles-item {
+  display: inline-block;
+  width: 240px;
+  vertical-align: top;
+  margin: 0;
+  padding: 20px;
+}
+
+.list-circles-item:hover {
+  background: #fafafa;
+}
+
+.list-circles-item .item-img {
+  max-width: 200px;
+  height: 200px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 1px solid #777;
+}
+
+.list-circles-item .item-desc {
+  font-size: 16px;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.list-circles-item .item-links {
+  margin-top: 10px;
+  padding-right: 5px;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+}
+
+.list-circles-item .item-link {
+  margin:0 3px;
+  color: #314f96;
+  text-decoration: none !important;
+}
+
+.list-circles-item .item-link:hover {
+  color: #042265;
+}
+
+.svg-icon {
+  display: inline-flex;
+  align-self: center;
+}
+
+</style>
+```
+
 <hr>
 
